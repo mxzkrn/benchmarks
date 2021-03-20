@@ -40,7 +40,9 @@ executables := \
 	target/json_vala_gcc \
 	target/json_vala_clang \
 	target/json_dawjsonlink_cpp \
-	json-fsharp/target/Release/net5.0/json-fsharp
+	json-fsharp/target/Release/net5.0/json-fsharp \
+	target/json_swift_codable \
+	target/json_swift
 
 artifacts := $(executables) \
 	target/test.exe \
@@ -63,7 +65,9 @@ all_runners := $(patsubst %,run[%], $(artifacts)) \
 	run[truby-native][test.rb] \
 	run[jruby][test.rb] \
 	run[test.php] \
-	run[test.clj]
+	run[test.clj] \
+	run[test.swift] \
+	run[test_codable.swift]
 
 # Build
 
@@ -245,6 +249,9 @@ target/json_dawjsonlink_cpp: test_dawjsonlink.cpp | $(daw_json_link_all) $(boost
 
 json-fsharp/target/Release/net5.0/json-fsharp: json-fsharp/json-fsharp.fsproj json-fsharp/Program.fs
 	$(DOTNET_BUILD)
+
+target/json_swift_codable: test_codable.swift | $(SWIFT_BUILD)
+target/json_swift: test.swift | $(SWIFT_BUILD)
 
 # Run
 

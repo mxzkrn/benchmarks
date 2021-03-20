@@ -4,6 +4,7 @@ LIBNOTIFY_FLAGS := -I../common/libnotify ../common/libnotify/target/libnotify.a
 NIM_FLAGS := -d:danger --verbosity:0 --opt:speed --hints:off
 VALAC_FLAGS := --disable-assert -X -O3 --pkg gio-2.0 --pkg posix
 V_FLAGS := -prod
+SWIFT_FLAGS := 
 
 CLANG_BUILD =		clang $(CLANG_FLAGS) -o $@ $^ $(LIBNOTIFY_FLAGS)
 CRYSTAL_BUILD =	crystal build --release --no-debug -o $@ $^
@@ -29,6 +30,7 @@ VALAC_CLANG_BUILD =	valac $^ --cc=clang -D CLANG_TEST $(VALAC_FLAGS) -o $@
 VALAC_GCC_BUILD =	valac $^ --cc=gcc -D GCC_TEST $(VALAC_FLAGS) -o $@
 V_CLANG_BUILD =	v $(V_FLAGS) -cc clang -o $@ $^
 V_GCC_BUILD =		v $(V_FLAGS) -cc gcc -o $@ $^
+SWIFT_BUILD =		swiftc $(SWIFT_FLAGS) -o $@ $^
 
 define OCAML_BUILD =
 cp $^ target && cd target && ocamlopt -O3 -unsafe unix.cmxa $^ -o $(@F)
